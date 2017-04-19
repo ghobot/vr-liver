@@ -11,43 +11,46 @@
 </head>
 
 <body>
-    <a-scene stats fog="type: linear; color: #AAB; far: 30; near: 0"  auto-enter-vr="display:all">
+    <a-scene fog="type: linear; color: #AAB; far: 30; near: 0"  auto-enter-vr="display:all">
         <a-assets>
-            <!-- <audio id="click-sound" src="https://cdn.aframe.io/360-image-gallery-boilerplate/audio/click.ogg"></audio>
+            <audio id="click-sound" src="https://cdn.aframe.io/360-image-gallery-boilerplate/audio/click.ogg"></audio>
             <a-asset-item id="liver-obj" src="3d_assets/normal_liver_obj/model_mesh.obj"></a-asset-item>
             <a-asset-item id="liver-mtl" src="3d_assets/normal_liver_obj/model_mesh.obj.mtl"></a-asset-item>
             <a-asset-item id="liver2-obj" src="3d_assets/honeycomb_liver/model_mesh.obj"></a-asset-item>
-            <a-asset-item id="liver2-mtl" src="3d_assets/honeycomb_liver/model_mesh.obj.mtl"></a-asset-item> -->
-            <a-asset-item id="liver3-obj" src="3d_assets/cirrhotic_liver/model_mesh_decimated2.obj"></a-asset-item>
-            <a-asset-item id="liver3-mtl" src="3d_assets/cirrhotic_liver/model_mesh_decimated2.mtl"></a-asset-item>
+            <a-asset-item id="liver2-mtl" src="3d_assets/honeycomb_liver/model_mesh.obj.mtl"></a-asset-item>
+           <!--  <a-asset-item id="liver3-obj" src="3d_assets/cirrhotic_liver/model_mesh_decimated2.obj"></a-asset-item>
+            <a-asset-item id="liver3-mtl" src="3d_assets/cirrhotic_liver/model_mesh_decimated2.mtl"></a-asset-item> -->
+            <a-asset-item id="liver-dae" src="3d_assets/cirrhotic_liver/liver.dae"></a-asset-item>
             <img id="highlight1" src="../images/radial-highlight.png">
             <img id="shadow3" src="../images/radial-shadow-3.png">
         </a-assets>
 
         <!-- Using the asset management system. -->
 
-        <a-entity position="0 0 -10">
+        <a-entity position="0 0 0">
             <!-- Ground Highlight -->
             <a-image position="0 -.2 5" src="#highlight1" rotation="-90 0 0" scale="30 30 30"></a-image>
 
-            <a-entity id="livers" layout="type: line; margin: 1" position="0 1 -3">
-                <a-entity rotation="0 0 0"  >
-                    <a-entity position="0 1.5 0" color="#5e2b97" align="center" bmfont-text="text: Cirrhotic Liver"> </a-entity>
-                    <a-obj-model position="0 1 0" class="link" scale="5 5 5" src="#liver3-obj" mtl="#liver3-mtl" ></a-obj-model>
+            <a-entity id="livers" layout="type: line; margin: -2" position="2 1 -1.5">
+                <a-entity rotation="0 -30 0"  >
+                    <a-entity position="-1 1.5 0" color="#5e2b97" align="center" bmfont-text="text: Cirrhotic Liver"> </a-entity>
+                    <a-collada-model src="#liver-dae" position="0 1 0" class="link" scale="5 5 5"></a-collada-model>
+
+                    <!-- <a-obj-model position="0 1 0" class="link" scale="5 5 5" src="#liver3-obj" mtl="#liver3-mtl" ></a-obj-model> -->
                     <a-image src="#shadow3" rotation="-90 0 0" scale="2 .6 .6"></a-image>
                 </a-entity>
 
-                <!-- <a-entity rotation="0 -90 0">
-                    <a-entity position="0 1.5 0" color="#5e2b97" align="center" bmfont-text="text: Normal Liver"> </a-entity>
+                <a-entity rotation="0 0 0">
+                    <a-entity position="-1 1.5 0" color="#5e2b97" align="center" bmfont-text="text: Normal Liver"> </a-entity>
                     <a-obj-model position="0 1 0" class="link" scale="5 5 5" src="#liver-obj" mtl="#liver-mtl" ></a-obj-model>
                     <a-image src="#shadow3" rotation="-90 0 0" scale="2 .6 .6"></a-image>
                 </a-entity>
 
-                <a-entity rotation="0 150 0" >
-                    <a-entity position="0 1.5 0" color="#5e2b97" align="center" bmfont-text="text: Honeycomb Liver"> </a-entity>
+                <a-entity rotation="0 30 0" >
+                    <a-entity position="-1 1.5 0" color="#5e2b97" align="center" bmfont-text="text: Honeycomb Liver"> </a-entity>
                     <a-obj-model position="0 1 0" class="link" scale="5 5 5" src="#liver2-obj" mtl="#liver2-mtl" ></a-obj-model>
                     <a-image src="#shadow3" rotation="-90 0 0" scale="2 .6 .6"></a-image>
-                </a-entity> -->
+                </a-entity>
 
                 
             </a-entity>
@@ -66,6 +69,21 @@
             </a-entity>
         </a-entity>
     </a-scene>
+    <script>
+   (function () {
+       // switch to stereoscopic mode directly on page load, this needs to be after the a-scene loads.
+       var scene = document.querySelector('a-scene');
+       if (scene.hasLoaded) {
+           scene.enterVR();
+       } else {
+           scene.addEventListener('loaded', function () {
+               setTimeout(function () {
+                   scene.enterVR();
+               }, 1000);
+           });
+       };
+   })();
+    </script>
 </body>
 
 </html>
