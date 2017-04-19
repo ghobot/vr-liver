@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <title>Skull VR</title>
+    <meta name="description" content="3D Model — A-Frame">
+    <script src="https://aframe.io/releases/0.3.2/aframe.min.js"></script>
+</head>
+  <body>
+    <a-scene>
+      <a-assets>
+        <img id="room" src="images/bg.png">
+        <img id="def_pelvis" src="images/pelvis.png">
+        <img id="def_skull" src="images/skull.png">
+        <a-asset-item id="pelvis" src="models/pelvis/pelvis.dae"></a-asset-item>
+	    <a-asset-item id="skull" src="models/skull/skull_decimated.dae"></a-asset-item>
+      </a-assets>
+
+      <a-sky src="#room" rotation="0 -90 0"></a-sky>
+      
+     
+      
+      <a-image src="#def_skull" width="10" height="10" position="-.8 2 1.2" rotate="0 90 0" scale="0.2 0.2 0.2"></a-image>
+     
+	  <a-collada-model src="#skull" position="1.5 1.5 0" scale="5 5 5"><a-animation attribute="rotation" delay="0" dur="6000" easing="linear" repeat="indefinite" to="0 360 0"></a-animation></a-collada-model>             
+
+     <a-entity position="0 0 5">          
+                <a-camera>
+                    <!-- <a-cursor id="cursor">
+                        <a-animation  easing="ease-in" attribute="scale" fill="backwards" from="0.1 0.1 0.1" to="1 1 1" dur="150"></a-animation>
+                        <a-animation begin="cursor-fusing" easing="ease-in" attribute="scale" from="1 1 1" to="0.1 0.1 0.1" dur="1500"></a-animation>
+                    </a-cursor> -->
+                </a-camera>
+            </a-entity>
+    </a-scene>
+  </body>
+   <script>
+   (function () {
+       // switch to stereoscopic mode directly on page load, this needs to be after the a-scene loads.
+       var scene = document.querySelector('a-scene');
+       if (scene.hasLoaded) {
+           scene.enterVR();
+       } else {
+           scene.addEventListener('loaded', function () {
+               setTimeout(function () {
+                   scene.enterVR();
+               }, 1000);
+           });
+       };
+   })();
+    </script>
+
+</html>
