@@ -1,56 +1,55 @@
 // Registering component in marker-component.js
 
-
-AFRAME.registerComponent('marker', {
+AFRAME.registerComponent('markers', {
 
     init: function() {
 
-        // <a-plane event-set__enter="_event: mouseenter; _target: #text-gown; visible: true" event-set__leave="_event: mouseleave; _target: #text-gown; visible: false" class="marker" material="shader: flat; transparent: true; side: double" src="#info" position="1 2 -6" scale=".5 .5 .5" look-at="[camera]" data-desc="single gown use">
-        //        <a-text id="text-gown" value="single gown use" align="center" color="#000" visible="false" position="4 0.55 0.55" geometry="primitive: plane; width: 6" material="color: #FFF" width="6" wrap-count="20" ></a-text>
-        //    </a-plane>
 
         var scene = document.querySelector('a-scene');
-
         // in a loop create a-plane, set events, add class, add material, link to image, set position, set scale, make it look at camera
-
         var checkPointsContainer,
             infoPosition,
             infoText,
             infoTarget,
-            eventEnter = "_event: mouseenter; _target: #text-" + infoTarget + "; visible: true",
-            eventLeave = "_event: mouseleave; _target: #text-" + infoTarget + "; visible: false",
+            eventEnter,
+            eventLeave,
             _infoMaterial = "shader: flat; transparent: true; side: double",
             _class = "marker",
             _image = "#info",
-            _scale = [.5 .5 .5],
+            _scale = { x: 0.5, y: 0.5, z: 0.5 },
             _lookAtCam = "[camera]",
             _alignment = "center",
-            _color = "#000",
-            _infoPosition = [4 0.55 0.55],
-            _textGeometry = "primitive: plane; width: 6",
-            _textMaterial = "color: #FFF"
-        _textWidth,
-        _text,
-        _textWrapCount = 20;
+            _black = "#000",
+            _white = "#ffffff",
+            _infoPosition = { x: 4, y: 0.55, z: 0 },
+            _textGeometry = "primitive: plane; width: 7; height: 3",
+            _textMaterial = "color: #FFF; side: double",
+            _textWidth = "6",
+            _textWrapCount = "20",
+            _offset = 2,
+            _visible = "false",
+            _details = document.getElementById('details'),
+            _markerTitle = document.getElementById('marker-title'),
+            _markerDetails = document.getElementById('marker-details'); 
 
 
         const infoPositions = [
-            { x: 1.000, y: 2, z: -6.000 }, // gown
-            { x: , y: , z: }, //cap               
-            { x: , y: , z: }, //textiles            
-            { x: , y: , z: }, //tray
-            { x: , y: , z: }, //packaging
-            { x: , y: , z: }, //robot console
-            { x: , y: , z: }, //robot arm
-            { x: , y: , z: }, //red waste bag
-            { x: , y: , z: }, //surgical robot
-            { x: , y: , z: }, //bunny suit
-            { x: , y: , z: }, //LED lighting
-            { x: , y: , z: }, //cautery
-            { x: , y: , z: }, //drape hoses
-            { x: , y: , z: }, //fabric underlayer
-            { x: , y: , z: }, //solid waste
-            { x: , y: , z: }, //textiles 2
+            { x: 0, y: 3, z: -4 }, // gown
+            { x: 0, y: 5, z: -4.5 }, //  cap               
+            { x: 4, y: 2.5, z: -4 }, //  textiles            
+            { x: -3, y: 2, z: -4 }, //tray
+            { x: -2.8, y: 1, z: -4 }, //packaging
+            { x: -4.5, y: 2, z: -4 }, //robot console
+            { x: -5, y: 4, z: -3.5 }, //robot arm
+            { x: -5, y: 2.1, z: -0.5 }, //red waste bag
+            { x: -6, y: 7, z: -1.5 }, //surgical robot
+            { x: -4, y: 3, z: 2 }, //bunny suit
+            { x: -5, y: 9, z: 0 }, //  LED lighting
+            { x: -1, y: 4, z: 4 }, //cautery
+            { x: -0.5, y: 3, z: 5 }, //drape hoses
+            { x: 0, y: 1, z: 3 }, //fabric underlayer
+            { x: 1.2, y: 3, z: 4 }, //solid waste 
+            { x: 1, y: 2, z: 3 }, //textiles 2
         ];
 
         const infoTextArray = [
@@ -88,83 +87,66 @@ AFRAME.registerComponent('marker', {
             "drape-hoses",
             "underlayer",
             "waste",
-            "textiles2"
+            "textiles2",
         ];
 
         var infoMarkersContainer = document.createElement('a-entity');
 
 
         for (var i = 0; i < infoPositions.length; i++) {
+
             infoPosition = infoPositions[i];
             infoText = infoTextArray[i];
             infoTarget = infoTargetNames[i];
-            var infoMarker = document.createElement("a-plane"),
-                infoText = document.createElement("a-text");
-            infoMarker.setAttribute("event-set__enter", eventEnter );
-            infoMarker.setAttribute("event-set__leave", eventLeave);
-            infoMarker.setAttribute("material", _infoMaterial);
-            infoMarker.setAttribute("class", _class );
-            infoMarker.setAttribute("position", infoPosition );
+            eventEnter = "_event: mouseenter; _target: #" + infoTarget + "; visible: true";
+            eventLeave = "_event: mouseleave; _target: #" + infoTarget + "; visible: false";
+
+            var _infoMarkerEl = document.createElement("a-plane"),
+                _infoTextEl = document.createElement("a-text");
 
 
+            _infoMarkerEl.setAttribute("event-set__enter", eventEnter);
+            _infoMarkerEl.setAttribute("event-set__leave", eventLeave);
+            _infoMarkerEl.setAttribute("material", _infoMaterial);
+            _infoMarkerEl.setAttribute("class", _class);
+            _infoMarkerEl.setAttribute("position", infoPosition);
+            _infoMarkerEl.setAttribute("scale", _scale);
+            _infoMarkerEl.setAttribute("look-at", _lookAtCam);
+            _infoMarkerEl.setAttribute("src", _image);
+            _infoMarkerEl.setAttribute("cursor-listener");
+
+
+            _infoTextEl.setAttribute("id", infoTarget);
+            _infoTextEl.setAttribute("value", infoText);
+            _infoTextEl.setAttribute("align", _alignment);
+            _infoTextEl.setAttribute("color", _black);
+            _infoTextEl.setAttribute("visible", _visible);
+            _infoTextEl.setAttribute("position", _infoPosition);
+            _infoTextEl.setAttribute("geometry", _textGeometry);
+            _infoTextEl.setAttribute("material", _white);
+            _infoTextEl.setAttribute("width", _textWidth);
+            _infoTextEl.setAttribute("wrap-count", _textWrapCount);
+
+            _infoMarkerEl.appendChild(_infoTextEl);
             
+            _infoMarkerEl.addEventListener('click', function(evt) {
+
+               // _details = document.getElementById('details');
+               // _markerTitle = document.getElementById('marker-title');
+               // _markerDetails = document.getElementById('marker-details'); 
+
+              // _details.style.visibility =  "visible";
+              // //console.log('I was clicked at: ', evt.detail.intersection.point);
+              // _markerTitle.innerHTML = this.;
+              // _markerDetails.innerHTML = infoText;
+
+              
+            }); 
+
+            infoMarkersContainer.appendChild(_infoMarkerEl);
 
         }
+        scene.appendChild(infoMarkersContainer);
+    },
 
-
-    }
 });
-
-
-// // create marker
-//     var marker= '<button class="Hotspot Hotspot--editorial  is-showing is-visible" style="position: absolute; z-index: 19; left: 200px; top: 200px;"><div class="Hotspot-inner">';
-//     marker+= '<span class="Hotspot-icons">';
-//     marker+= '<span class="Hotspot-icon Hotspot-icon--info">';
-//     marker+= '<svg class="Icon Icon--info" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" xml:space="preserve" preserveAspectRatio="xMinYMin meet"><path class="Hotspot-iconEditorialBody is-animated" d="M7,8.8h9V23h2.9v3H7.1v-3h3V11.1h-3L7,8.8L7,8.8z" style="animation-delay: 12s;"></path><circle class="Hotspot-iconEditorialDot is-animated" cx="13" cy="3" r="3" style="animation-delay: 12s;"></circle></svg>';
-//     marker+= '</span></span>';
-//     marker+= '<span class="Hotspot-label" data-id=""></span>';
-//     marker+= '</div>';
-//     marker+= '<div class="Hotspot-arrow"></div>';
-//     marker+= '</button>';
-
-
-/*
-<button class="Hotspot Hotspot--editorial  is-showing is-visible" style="position: absolute; z-index: 19; left: 200px; top: 200px;">
-        <div class="Hotspot-inner">
-            <span class="Hotspot-icons">
-            <span class="Hotspot-icon Hotspot-icon--info">
-                <svg class="Icon Icon--info" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" xml:space="preserve" preserveAspectRatio="xMinYMin meet">
-                    <path class="Hotspot-iconEditorialBody is-animated" d="M7,8.8h9V23h2.9v3H7.1v-3h3V11.1h-3L7,8.8L7,8.8z" style="animation-delay: 12s;"></path>
-                    <circle class="Hotspot-iconEditorialDot is-animated" cx="13" cy="3" r="3" style="animation-delay: 12s;"></circle>
-                </svg>
-            </span>
-            </span>
-            <span class="Hotspot-label" data-id=""></span>
-        </div>
-        <div class="Hotspot-arrow"></div>
-    </button>
-*/
-
-
-// document.addEventListener("click", function() {
-
-//     function sphericalCoordsToVector3(distance, latitude, longitude) {
-//         return new THREE.Vector3(
-//             distance * -Math.cos(latitude) * Math.cos(longitude),
-//             distance * Math.sin(latitude),
-//             distance * -Math.cos(latitude) * Math.sin(longitude)
-//         );
-//     }
-
-
-//     var camera = document.querySelector("a-camera");
-//     var cursor = document.querySelector("a-cursor");
-//     var camera_pos = new THREE.Vector3().copy(camera.object3D.getWorldPosition()); // get camera's world position
-//     var cursor_pos = new THREE.Vector3().copy(cursor.object3D.getWorldPosition()); // get cursor's world position
-//     var direction = new THREE.Vector3().subVectors(cursor_pos, camera_pos); //calculate direction from camera to cursor
-//     var raycaster = new THREE.Raycaster(camera_pos, direction.normalize()); // make raycaster 
-//     var sky = document.querySelector("a-sky");
-//     var intersects = raycaster.intersectObject(sky.object3D.children[0]); //let raycaster intersect the 'a-sky' sphere
-//     console.log(intersects[0].point);
-
-// });

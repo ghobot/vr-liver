@@ -6,182 +6,11 @@
     <title>Operating Room Panorama</title>
     <meta name="description" content="Panorama — A-Frame">
     <script src="https://aframe.io/releases/0.6.1/aframe.min.js"></script>
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
     <script src="https://unpkg.com/aframe-event-set-component@3.0.3/dist/aframe-event-set-component.min.js"></script>
     <script src="https://unpkg.com/aframe-look-at-component@0.5.1/dist/aframe-look-at-component.min.js"></script>
     <script src="js/markers-component.js"></script>
-    <style>
-    .Hotspot {
-        color: #fff;
-        cursor: pointer;
-        display: block;
-        flex-direction: column;
-        height: 58px;
-        visibility: hidden;
-        opacity: 1 pointer-events: all;
-        visibility: visible
-    }
-
-    .Hotspot-arrow,
-    .Hotspot-arrow::before {
-        position: absolute;
-        width: 44px;
-    }
-
-    .Hotspot-arrow {
-        min-width: 44px;
-        min-height: 14px;
-        height: 14px;
-        border-color: #fff transparent transparent;
-        border-style: solid;
-        border-width: 14px 22px 0;
-    }
-
-    .Hotspot-arrow::before {
-        bottom: 16px;
-        display: block;
-        height: 2px;
-    }
-
-    .Hotspot-inner {
-        overflow: hidden;
-        position: relative;
-        height: 44px
-    }
-
-    .Hotspot-icons {
-        align-items: center;
-        display: flex;
-        height: 44px;
-        justify-content: center;
-        left: 50%;
-        opacity: 1;
-        position: absolute;
-        top: 0;
-        transform: translateX(-50%) translateY(0);
-        transition: transform .2s .1s, opacity .2s .1s;
-        width: 44px;
-        z-index: 1
-    }
-
-    .Hotspot-icon {
-        display: inline-block;
-        height: 27px;
-        width: 26px
-    }
-
-    .Hotspot-icon .Icon--info {
-        padding-left: 1px;
-        padding-top: 4px
-    }
-
-    .Hotspot-label {
-        background-color: #626262;
-        display: inline-block;
-        font-size: 1rem;
-        font-weight: 400;
-        height: 44px;
-        line-height: .9rem;
-        overflow: hidden;
-        padding: 0;
-        position: relative;
-        transition: width .1s .15s linear, padding .1s .1s linear;
-        -webkit-user-select: none;
-        -moz-user-select: none;
-        -ms-user-select: none;
-        user-select: none;
-        white-space: nowrap;
-        width: 44px
-    }
-
-    .Hotspot-label::before {
-        display: block;
-        height: 44px;
-        position: absolute;
-        right: 0;
-        top: 0;
-        transform-origin: right bottom;
-        transform: rotate(45deg) translateY(0);
-        transition: transform .3s;
-        width: 90px
-    }
-
-    .Hotspot--editorial .Hotspot-label {
-        background-color: #3783f8
-    }
-
-    .Hotspot--editorial .Hotspot-label::before {
-        background-color: #317cf0
-    }
-
-    .Hotspot--editorial .Hotspot-arrow {
-        border-top-color: #3783f8
-    }
-
-    .Hotspot--editorial .Hotspot-arrow::before {
-        background: #3783f8
-    }
-
-    .Hotspot-label .Hotspot-labelInner {
-        display: inline-block;
-        opacity: 1;
-    }
-
-    .Hotspot-icon--info {
-        height: 35px
-    }
-
-    .Icon path,
-    .Icon circle {
-        fill: #fdf6f8;
-    }
-
-    button,
-    html {
-        -webkit-font-smoothing: antialiased;
-        -moz-osx-font-smoothing: grayscale;
-    }
-
-
-    button {
-        -webkit-appearance: button;
-        cursor: pointer;
-    }
-
-    button {
-        text-transform: none;
-    }
-
-    button {
-        overflow: visible;
-    }
-
-    button {
-        color: inherit;
-        font: inherit;
-        margin: 0;
-    }
-
-    .Button,
-    button {
-        background: 0 0;
-    }
-
-    button {
-        padding: 0;
-    }
-
-    button {
-        border: 0;
-    }
-
-    *,
-     ::after,
-     ::before {
-        box-sizing: border-box;
-    }
-
-    #info {
+    <style type="text/css">
+    #details {
         z-index: 10;
         position: absolute;
         right: 1%;
@@ -197,46 +26,23 @@
 </head>
 
 <body>
-    <a-scene cursor="rayOrigin: mouse" vr-mode-ui="enabled: false">
+    <a-scene markers cursor="rayOrigin: mouse" vr-mode-ui="enabled: false">
         <a-assets>
             <image src="images/or_waste_01_raw.jpg" id="or" />
-            <image src="images/hotspot.png" id="hotspot" />
             <image src="images/info-white.png" id="info" />
         </a-assets>
-        <!--  <a-sprite position="0 .5 1" resize="1 1 1" src="images/hotspot.png"></a-sprite> -->
-        <!-- <a-box position="0 .5 1" log="box drawn" height=".5" width="0.5"></a-box> -->
-        <!-- <a-plane material="shader: html; target: #htmlElement; ratio: height; transparent: true; side: double" position="0 2 -6" ></a-plane> -->
-        <a-plane event-set__enter="_event: mouseenter; _target: #text-gown; visible: true" event-set__leave="_event: mouseleave; _target: #text-gown; visible: false" class="marker" material="shader: flat; transparent: true; side: double" src="#info" position="1 2 -6" scale=".5 .5 .5" look-at="[camera]" data-desc="single gown use">
-            <a-text id="text-gown" value="single gown use" align="center" color="#000" visible="false" position="4 0.55 0.55" geometry="primitive: plane; width: 6" material="color: #FFF" width="6" wrap-count="20" ></a-text>
-        </a-plane>
-        
-
-        <a-plane event-set__enter="_event: mouseenter; _target: #text-cap; visible: true" event-set__leave="_event: mouseleave; _target: #text-cap; visible: false" class="marker" material="shader: flat; transparent: true; side: double" src="#info" position=".8 5.5 -6" scale=".5 .5 .5" look-at="[camera]" data-desc="disposable cap">
-          <a-text id="text-cap" value="disposable cap" align="center" color="#000" visible="false" position="4 0.55 0.55" geometry="primitive: plane; width: 6" material="color: #FFF" width="6" wrap-count="20" ></a-text>
-        </a-plane>
-
-
-        <a-plane event-set__enter="_event: mouseenter; _target: #text-textiles; visible: true" event-set__leave="_event: mouseleave; _target: #text-textiles; visible: false" class="marker" material="shader: flat; transparent: true; side: double" src="#info" position="4 2.5 -4" scale=".5 .5 .5" look-at="[camera]" data-desc="non-recyclable Sms-polypropylene textiles">
-          <a-text id="text-textiles" value="non-recyclable Sms-polypropylene textiles" align="center" color="#000" visible="false" position="4 0.55 0.55" geometry="primitive: plane; width: 6; height: 3;" material="color: #fff" width="6" wrap-count="20" ></a-text>
-        </a-plane>
-
-
-        <!-- <a-entity geometry="primitive: box" scale="1 1 1" position="0 2 -5" material="shader: html; target: #htmlElement2"></a-entity> -->
+        <!-- <a-entity markers></a-entity> -->
         <a-text font="kelsonsans" align="center" value="OR Waste \n @ NYU Langone \n View 1" width="8" position="0 1 -6" look-at="[camera]"></a-text>
         <a-camera universal-controls position="0 1.6 0" camera>
-          <a-cursor></a-cursor>
+            <a-cursor></a-cursor>
         </a-camera>
+        <a-entity light="type: ambient; color: #ffffff"></a-entity>
         <a-sky src="#or" material="side: double"></a-sky>
     </a-scene>
-    <!-- <div id="info">
-        <h2 class="marker-title">Marker Title</h2>
-        <p class="marker-info">Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
-    </div> -->
+    <div id="details" style="visibility: hidden">
+        <h2 id="marker-title">Marker Title</h2>
+        <p id="marker-details">Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
+    </div>
 </body>
-<!-- 
-{x: -3211, y: -445, z: 3800}
-
-
- -->
 
 </html>
