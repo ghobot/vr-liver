@@ -128,5 +128,9 @@ AFRAME.registerComponent('markers', {
             infoMarkersContainer.appendChild(_infoMarkerEl);
         }
         scene.appendChild(infoMarkersContainer);
+
+        //take out keyboard control
+        document.querySelector('[camera]').removeAttribute('wasd-controls');
+
     },
 });
