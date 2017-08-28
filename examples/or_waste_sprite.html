@@ -12,26 +12,76 @@
     <style type="text/css">
     #details {
         z-index: 10;
-        position: absolute;
-        right: 1%;
-        bottom: 25%;
-        font-family: Roboto, Open Sans, sans-serif;
+        position: fixed;
+        top: 0;
+        left: 0;
         color: #eee;
-        width: 30%;
-        background-color: rgba(0, 0, 0, .8);
+        width: 100%;
+        height: 100%;
+        background-color: rgba(0, 0, 0, .6);
         padding: 25px;
     }
 
-    #details img{
-      width: 100%;
-      margin: 0 auto;
+    #details-content {
+        background-color: black;
+        font-family: Roboto, Open Sans, sans-serif;
+        margin: 0 auto; /* 15% from the top and centered */
+        padding: 20px;
+        border: 3px dashed #888;
+        width: 80%; /* Could be more or less, depending on screen size */
+    }
 
+    #details-content img {
+        width: 100%;
+        height: 50%;
+        margin: 0 auto;
+    }
+
+    .hidden {
+        display: none;
+    }
+
+    .show {
+        display: block;
+    }
+
+    #close {
+        float: right;
+        display: inline-block;
+        padding: 2px 5px;
+        background: #ccc;
+        color: black;
+        font-size: 2em;
+        z-index: 10;
+        cursor: pointer;
+        cursor: hand;
+    }
+
+
+    #close:hover {
+        float: right;
+        display: inline-block;
+        padding: 2px 5px;
+        background: #ccc;
+        color: #eee;
+    }
+
+    .noselect {
+        -webkit-user-select: none;
+        /* Safari, iOS, and Android */
+        -moz-user-select: none;
+        /* Firefox */
+        -ms-user-select: none;
+        /* Internet Explorer/Edge */
+        user-select: none;
+        /* Non-prefixed version, currently
+                                  supported by Chrome and Opera */
     }
     </style>
 </head>
 
 <body>
-    <a-scene markers cursor="rayOrigin: mouse" vr-mode-ui="enabled: false">
+    <a-scene markers cursor="rayOrigin: mouse">
         <a-assets>
             <image src="images/or_waste_01_raw.jpg" id="or" />
             <image src="images/info-white.png" id="info" />
@@ -44,10 +94,27 @@
         <a-entity light="type: ambient; color: #ffffff"></a-entity>
         <a-sky src="#or" material="side: double"></a-sky>
     </a-scene>
-    <div id="details" style="display: none">
-        <!-- <h2 id="marker-title">Marker Title</h2>
-        <p id="marker-details">Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p> -->
+    <div id="details" class="hidden">
+        
+        <div id="details-content">
+          <span id="close" class="">X</span>
+        </div>
     </div>
+    <script>
+    (function() {
+        //close button on info panel
+
+        var closeButton = document.getElementById('close');
+
+        closeButton.addEventListener('click', function(evt) {
+            console.log("x is clicked.", evt);
+
+            this.parentNode.className = 'hidden';
+
+            return false;
+        });
+    })();
+    </script>
 </body>
 
 </html>
