@@ -1,182 +1,70 @@
-    .Hotspot {
-        color: #fff;
-        cursor: pointer;
-        display: block;
-        flex-direction: column;
-        height: 58px;
-        visibility: hidden;
-        opacity: 1 pointer-events: all;
-        visibility: visible
-    }
+#details {
+    z-index: 10;
+    position: fixed;
+    top: 0;
+    left: 0;
+    color: #eee;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, .6);
+    padding: 25px;
+}
 
-    .Hotspot-arrow,
-    .Hotspot-arrow::before {
-        position: absolute;
-        width: 44px;
-    }
+#details-content {
+    background-color: black;
+    font-family: Roboto, Open Sans, sans-serif;
+    margin: 0 auto;
+    /* 15% from the top and centered */
+    padding: 20px;
+    border: 3px dashed #888;
+    width: 80%;
+    height: 80%%;
+    /* Could be more or less, depending on screen size */
+}
 
-    .Hotspot-arrow {
-        min-width: 44px;
-        min-height: 14px;
-        height: 14px;
-        border-color: #fff transparent transparent;
-        border-style: solid;
-        border-width: 14px 22px 0;
-    }
+#details-content img {
+    width: 80%;
+    height: 80%;
+    margin: 0 auto;
+}
 
-    .Hotspot-arrow::before {
-        bottom: 16px;
-        display: block;
-        height: 2px;
-    }
+.hidden {
+    display: none;
+}
 
-    .Hotspot-inner {
-        overflow: hidden;
-        position: relative;
-        height: 44px
-    }
+.show {
+    display: block;
+}
 
-    .Hotspot-icons {
-        align-items: center;
-        display: flex;
-        height: 44px;
-        justify-content: center;
-        left: 50%;
-        opacity: 1;
-        position: absolute;
-        top: 0;
-        transform: translateX(-50%) translateY(0);
-        transition: transform .2s .1s, opacity .2s .1s;
-        width: 44px;
-        z-index: 1
-    }
-
-    .Hotspot-icon {
-        display: inline-block;
-        height: 27px;
-        width: 26px
-    }
-
-    .Hotspot-icon .Icon--info {
-        padding-left: 1px;
-        padding-top: 4px
-    }
-
-    .Hotspot-label {
-        background-color: #626262;
-        display: inline-block;
-        font-size: 1rem;
-        font-weight: 400;
-        height: 44px;
-        line-height: .9rem;
-        overflow: hidden;
-        padding: 0;
-        position: relative;
-        transition: width .1s .15s linear, padding .1s .1s linear;
-        -webkit-user-select: none;
-        -moz-user-select: none;
-        -ms-user-select: none;
-        user-select: none;
-        white-space: nowrap;
-        width: 44px
-    }
-
-    .Hotspot-label::before {
-        display: block;
-        height: 44px;
-        position: absolute;
-        right: 0;
-        top: 0;
-        transform-origin: right bottom;
-        transform: rotate(45deg) translateY(0);
-        transition: transform .3s;
-        width: 90px
-    }
-
-    .Hotspot--editorial .Hotspot-label {
-        background-color: #3783f8
-    }
-
-    .Hotspot--editorial .Hotspot-label::before {
-        background-color: #317cf0
-    }
-
-    .Hotspot--editorial .Hotspot-arrow {
-        border-top-color: #3783f8
-    }
-
-    .Hotspot--editorial .Hotspot-arrow::before {
-        background: #3783f8
-    }
-
-    .Hotspot-label .Hotspot-labelInner {
-        display: inline-block;
-        opacity: 1;
-    }
-
-    .Hotspot-icon--info {
-        height: 35px
-    }
-
-    .Icon path,
-    .Icon circle {
-        fill: #fdf6f8;
-    }
-
-    button,
-    html {
-        -webkit-font-smoothing: antialiased;
-        -moz-osx-font-smoothing: grayscale;
-    }
+#close {
+    float: right;
+    display: inline-block;
+    padding: 2px 5px;
+    background: #ccc;
+    color: black;
+    font-size: 2em;
+    z-index: 10;
+    cursor: pointer;
+    cursor: hand;
+}
 
 
-    button {
-        -webkit-appearance: button;
-        cursor: pointer;
-    }
+#close:hover {
+    float: right;
+    display: inline-block;
+    padding: 2px 5px;
+    background: #ccc;
+    color: #eee;
+}
 
-    button {
-        text-transform: none;
-    }
-
-    button {
-        overflow: visible;
-    }
-
-    button {
-        color: inherit;
-        font: inherit;
-        margin: 0;
-    }
-
-    .Button,
-    button {
-        background: 0 0;
-    }
-
-    button {
-        padding: 0;
-    }
-
-    button {
-        border: 0;
-    }
-
-    *,
-     ::after,
-     ::before {
-        box-sizing: border-box;
-    }
-
-    #info {
-        z-index: 10;
-        position: absolute;
-        right: 1%;
-        bottom: 25%;
-        font-family: Roboto, Open Sans, sans-serif;
-        color: #eee;
-        width: 20%;
-        min-height: 50%;
-        background-color: rgba(0, 0, 0, .6);
-        padding: 20px;
-    }
+.noselect {
+    -webkit-user-select: none;
+    /* Safari, iOS, and Android */
+    -moz-user-select: none;
+    /* Firefox */
+    -ms-user-select: none;
+    /* Internet Explorer/Edge */
+    user-select: none;
+    /* Non-prefixed version, currently
+                                  supported by Chrome and Opera */
+}

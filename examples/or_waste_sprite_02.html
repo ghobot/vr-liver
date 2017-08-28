@@ -1,0 +1,175 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <title>Operating Room Panorama 2</title>
+    <meta name="description" content="Panorama — A-Frame">
+    <script src="https://aframe.io/releases/0.6.1/aframe.min.js"></script>
+    <script src="https://unpkg.com/aframe-event-set-component@3.0.3/dist/aframe-event-set-component.min.js"></script>
+    <script src="https://unpkg.com/aframe-look-at-component@0.5.1/dist/aframe-look-at-component.min.js"></script>
+    <script src="js/markers-component.js"></script>
+    <script id="data" type="application/json">
+    {
+        "markers": [{
+                "name": "dispenser",
+                "description": "blue dispenser possibly for sharps or pharmaceutical disposal",
+                "position": {
+                    "x": -1,
+                    "y": 2,
+                    "z": -3
+                },
+                "hasDetails": false,
+                "details_image": "",
+                "details_text": ""
+            },
+            {
+                "name": "neptune",
+                "description": "Neptune Surgical Fluid removal system: stores surgical gas and fluids in a bottle; tubing is not reusable, but the rest is",
+                "position": {
+                    "x": 1,
+                    "y": 3,
+                    "z": -3
+                },
+                "hasDetails": false,
+                "details_image": "",
+                "details_text": ""
+            },
+            {
+                "name": "DAU",
+                "description": "",
+                "position": {
+                    "x": 4,
+                    "y": 2.5,
+                    "z": -4
+                },
+                "hasDetails": true,
+                "details_image": "images/DAu_image_4.jpg",
+                "details_text": ""
+            },
+            {
+                "name": "blackbox",
+                "description": "Blackbox for pharmaceutical controlled substances; landfilled",
+                "position": {
+                    "x": 6,
+                    "y": 2.2,
+                    "z": -3
+                },
+                "hasDetails": false,
+                "details_image": "",
+                "details_text": ""
+            },
+            {
+                "name": "drape",
+                "description": "Bare warm air drape; large tubing is reusable because it connects to a disposable drape on the patient",
+                "position": {
+                    "x": 4,
+                    "y": 2,
+                    "z": -1
+                },
+                "hasDetails": false,
+                "details_image": "",
+                "details_text": ""
+            },
+            {
+                "name": "IV",
+                "description": "IV bags are disposable",
+                "position": {
+                    "x": 3,
+                    "y": 4,
+                    "z": 0
+                },
+                "hasDetails": false,
+                "details_image": "",
+                "details_text": ""
+            },
+            {
+                "name": "EAU",
+                "description": "Discarded contents on surface",
+                "position": {
+                    "x": 2,
+                    "y": 3,
+                    "z": 2
+                },
+                "hasDetails": true,
+                "details_image": "images/EAu_image_3.jpg",
+                "details_text": ""
+            },
+            {
+                "name": "air-bag",
+                "description": "Green Air Bag is single use only ",
+                "position": {
+                    "x": 2,
+                    "y": 2,
+                    "z": 2
+                },
+                "hasDetails": false,
+                "details_image": "",
+                "details_text": ""
+            },
+            {
+                "name": "sharps",
+                "description": "Sharps disposal at NYU; these and red bag waste autoclaved and then landfilled",
+                "position": {
+                    "x": 0,
+                    "y": 1.8,
+                    "z": 2
+                },
+                "hasDetails": false,
+                "details_image": "",
+                "details_text": ""
+            },
+            {
+                "name": "lighting",
+                "description": "flickering fluorescent lighting; low wattage",
+                "position": {
+                    "x": -4,
+                    "y": 6,
+                    "z": 2
+                },
+                "hasDetails": false,
+                "details_image": "",
+                "details_text": ""
+            }
+        ]
+    }
+    </script>
+  <link rel="stylesheet" type="text/css" href="css/marker.css">
+</head>
+
+<body>
+    <a-scene markers cursor="rayOrigin: mouse">
+        <a-assets>
+            <image src="images/or_waste_02_raw.jpg" id="or" />
+            <image src="images/info-white.png" id="info" />
+        </a-assets>
+        <!-- <a-entity markers></a-entity> -->
+        <a-text font="kelsonsans" align="center" value="OR Waste \n @ NYU Langone \n View 2" width="8" position="0 1 -6" look-at="[camera]"></a-text>
+        <a-camera universal-controls position="0 1.6 0" camera>
+            <a-cursor></a-cursor>
+        </a-camera>
+        <a-entity light="type: ambient; color: #ffffff"></a-entity>
+        <a-sky src="#or" material="side: double"></a-sky>
+    </a-scene>
+    <div id="details" class="hidden">
+        <div id="details-content">
+            <span id="close" class="">X</span>
+        </div>
+    </div>
+    <script>
+    (function() {
+        //close button on info panel
+
+        var closeButton = document.getElementById('close');
+
+        closeButton.addEventListener('click', function(evt) {
+            console.log("x is clicked.", evt);
+
+            this.parentNode.className = 'hidden';
+
+            return false;
+        });
+    })();
+    </script>
+</body>
+
+</html>
